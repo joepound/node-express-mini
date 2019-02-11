@@ -18,7 +18,12 @@ server.get("/api/users", (req, res) => {
 });
 
 server.get("/api/users/:id", (req, res) => {
+  const { id } = req.params;
 
+  db
+    .findById(id)
+    .then(user => res.status(user ? 200 : 404).json(user))
+    .catch(err => res.send(err.code).json(err));
 });
 
 server.delete("/api/users/:id", (req, res) => {
