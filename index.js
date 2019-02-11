@@ -11,23 +11,29 @@ server.post("/api/users", (req, res) => {
 
   if (!newUser) {
     const errorMessage = "Please provide a data object.";
-    res.status(400).json(errorMessage);
+    res.status(400).json({ errorMessage });
   } else if (!newUser.name) {
     const errorMessage = "Please provide a name for the user.";
-    res.status(400).json(errorMessage);
+    res.status(400).json({ errorMessage });
   } else if (!newUser.bio) {
     const errorMessage = "Please provide a bio for the user.";
-    res.status(400).json(errorMessage);
+    res.status(400).json({ errorMessage });
   } else {
     db.insert(newUser)
       .then(newUser => {
         const { id } = newUser;
-        db.findById(id).then(addedUser => res.status(201).json(addedUser));
+        db.findById(id)
+          .then(addedUser => res.status(201).json(addedUser))
+          .catch(err => {
+            const error =
+              "A user was created but an error occurred in retrieving the new user's data.";
+            res.status(500).json({ error });
+          });
       })
       .catch(err => {
         const error =
           "There was an error while saving the user to the database.";
-        res.status(500).json(error);
+        res.status(500).json({ error });
       });
   }
 });
@@ -37,7 +43,7 @@ server.get("/api/users", (req, res) => {
     .then(users => res.status(200).json(users))
     .catch(err => {
       const error = "The users' information could not be retrieved.";
-      res.status(500).json(error);
+      res.status(500).json({ error });
     });
 });
 
@@ -50,21 +56,49 @@ server.get("/api/users/:id", (req, res) => {
         res.status(200).json(user);
       } else {
         const message = `No user with the specified ID [${id}] exists.`;
-        res.status(404).json(message);
+        res.status(404).json({ message });
       }
     })
     .catch(err => {
-      const error = "The user's information could not be retrieved."
-      res.status(500).json(error);
+      const error = "The user's information could not be retrieved.";
+      res.status(500).json({ error });
     });
 });
 
 server.delete("/api/users/:id", (req, res) => {
   const { id } = req.params;
 
-  db.remove(id)
-    .then(deletions => res.status(204).end())
-    .catch(err => res.json(err.code).json(err));
+  db.findById(id)
+    .then(user => {
+      if (user) {
+        db.remove(id)
+          .then(deletions => {
+            if (deletions === 1) {
+              res.status(200).json(user);
+            } else if (deletions > 1) {
+              const message =
+                "ERROR: MORE THAN ONE USER WAS INADVERTENTLY DELETED!";
+              res.status(500).json({ message });
+            } else {
+              const message =
+                "The user could not be removed (error in deletion targeting).";
+              res.status(500).json({ message });
+            }
+          })
+          .catch(err => {
+            const error = "The user could not be removed.";
+            res.json(err.code).json({ error });
+          });
+      } else {
+        const message = `No user with the specified ID [${id}] exists.`;
+        res.status(404).json({ message });
+      }
+    })
+    .catch(err => {
+      const error =
+        "The user could not be removed (error in checking user data).";
+      res.status(500).json({ error });
+    });
 });
 
 server.put("/api/users/:id", (req, res) => {

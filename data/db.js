@@ -1,5 +1,5 @@
-const knex = require('knex');
-const knexConfig = require('../knexfile.js');
+const knex = require("knex");
+const knexConfig = require("../knexfile.js");
 const db = knex(knexConfig.development);
 
 module.exports = {
@@ -7,33 +7,50 @@ module.exports = {
   findById,
   insert,
   update,
-  remove,
+  remove
 };
 
+// 50-50 success chance error check (for testing only)
+function fiftyFifty(res) {
+  return Math.floor(Math.random() * 2)
+    ? res
+    : Promise.reject({
+        message: "TRY AGAIN"
+      });
+}
+
 function find() {
-  return db('users');
+  return fiftyFifty(db("users"));
 }
 
 function findById(id) {
-  return db('users')
-    .where({ id: Number(id) })
-    .first();
+  return fiftyFifty(
+    db("users")
+      .where({ id: Number(id) })
+      .first()
+  );
 }
 
 function insert(user) {
-  return db('users')
-    .insert(user)
-    .then(ids => ({ id: ids[0] }));
+  return fiftyFifty(
+    db("users")
+      .insert(user)
+      .then(ids => ({ id: ids[0] }))
+  );
 }
 
 function update(id, user) {
-  return db('users')
-    .where('id', Number(id))
-    .update(user);
+  return fiftyFifty(
+    db("users")
+      .where("id", Number(id))
+      .update(user)
+  );
 }
 
 function remove(id) {
-  return db('users')
-    .where('id', Number(id))
-    .del();
+  return fiftyFifty(
+    db("users")
+      .where("id", Number(id))
+      .del()
+  );
 }
