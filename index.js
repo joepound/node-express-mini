@@ -11,7 +11,10 @@ server.post("/api/users", (req, res) => {
 });
 
 server.get("/api/users", (req, res) => {
-
+  db
+    .find()
+    .then(users => res.status(200).json(users))
+    .catch(err => res.status(err.code).json(err));
 });
 
 server.get("/api/users/:id", (req, res) => {
