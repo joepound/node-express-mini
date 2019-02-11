@@ -9,9 +9,29 @@ server.use(cors());
 server.post("/api/users", (req, res) => {
   const newUser = req.body;
 
-  db.insert(newUser)
-    .then(newUser => res.status(201).json(newUser))
-    .catch(err => res.status(err.code).json(err));
+  if (!newUser) {
+    const errorMessage = "Please provide a data object.";
+    res.status(400).json({ errorMessage });
+  } else if (!newUser.name) {
+    const errorMessage = "Please provide a name for the user.";
+    res.status(400).json({ errorMessage });
+  } else if (!newUser.bio) {
+    const errorMessage = "Please provide a bio for the user.";
+    res.status(400).json({ errorMessage });
+  } else {
+    db.insert(newUser)
+      .then(newUser => {
+        const { id } = newUser;
+        db.findById(id).then(addedUser => res.status(201).json(addedUser));
+      })
+      .catch(err => {
+        const error =
+          "There was an error while saving the user to the database.";
+        res.status(500).json({
+          error
+        });
+      });
+  }
 });
 
 server.get("/api/users", (req, res) => {
