@@ -32,7 +32,12 @@ server.get("/api/users/:id", (req, res) => {
 });
 
 server.delete("/api/users/:id", (req, res) => {
+  const { id } = req.params;
 
+  db
+    .remove(id)
+    .then(deletions => res.status(204).end())
+    .catch(err => res.json(err.code).json(err));
 });
 
 server.put("/api/users/:id", (req, res) => {
