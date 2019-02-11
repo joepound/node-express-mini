@@ -37,7 +37,10 @@ server.post("/api/users", (req, res) => {
 server.get("/api/users", (req, res) => {
   db.find()
     .then(users => res.status(200).json(users))
-    .catch(err => res.status(err.code).json(err));
+    .catch(err => {
+      const error = "The users' information could not be retrieved.";
+      res.status(500).json({ error });
+    });
 });
 
 server.get("/api/users/:id", (req, res) => {
