@@ -45,4 +45,5 @@ server.put("/api/users/:id", (req, res) => {
     .catch(err => res.status(err.code).json(err));
 });
 
-server.listen(5000, () => console.log("Running user server on 5000..."));
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log("Running user server on 5000..."));
