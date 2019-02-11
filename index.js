@@ -7,7 +7,12 @@ server.use(express.json());
 server.use(cors());
 
 server.post("/api/users", (req, res) => {
+  const newUser = req.body;
 
+  db
+    .insert(newUser)
+    .then(newUser => res.status(201).json(newUser))
+    .catch(err => res.status(err.code).json(err));
 });
 
 server.get("/api/users", (req, res) => {
