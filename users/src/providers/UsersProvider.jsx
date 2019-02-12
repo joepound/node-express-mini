@@ -6,11 +6,20 @@ export const UsersContext = createContext();
 function UsersProvider(props) {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newBio, setNewBio] = useState("");
 
   const baseURL = "https://joepound-ls-brwawe-1.herokuapp.com/api";
   const usersContext = {
     users,
     selectedUser,
+    newName,
+    newBio,
+
+    textInputSetters: {
+      setNewName,
+      setNewBio
+    },
 
     getUsers() {
       axios
@@ -27,7 +36,21 @@ function UsersProvider(props) {
     },
 
     addUser() {
-      
+      if (!newName) {
+        alert("Please enter a name first.");
+      } else if (!newBio) {
+        alert("Please enter a bio first.");
+      } else {
+        axios
+          .post(`${baseURL}/users`, {name: newName, bio: newBio})
+          .then(res => {
+            alert("User was successfully added.");
+            usersContext.getUsers();
+            setNewName("");
+            setNewBio("");
+          })
+          .catch(err => console.log(err));
+      }
     },
 
     deleteUser(id) {
@@ -40,6 +63,10 @@ function UsersProvider(props) {
           })
           .catch(err => console.log(err));
       }
+    },
+
+    handleTextInputChange(e) {
+      usersContext.textInputSetters[e.currentTarget.name](e.currentTarget.value);
     },
 
     handleUserSelect(e) {

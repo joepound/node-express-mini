@@ -10,9 +10,10 @@ function UserlistSelect(props) {
 
   return (
     <div className="userlist__select">
-      <label className="userlist__select__label">View any user below: </label>
+      <label className="userlist__select__label" htmlFor="selectedUser">View any user below: </label>
       <select
         className="userlist__select__dropdown"
+        id="selectedUser"
         name="setSelectedUser"
         value={selectedUser ? selectedUser.id : ""}
         onChange={handleUserSelect}
