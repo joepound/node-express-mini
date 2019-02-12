@@ -81,13 +81,13 @@ server.delete("/api/users/:id", (req, res) => {
               res.status(500).json({ message });
             } else {
               const message =
-                "The user could not be removed (error in deletion targeting).";
+                "The user could not be removed (error in deletion process).";
               res.status(500).json({ message });
             }
           })
           .catch(err => {
-            const error = "The user could not be removed.";
-            res.json(err.code).json({ error });
+            const error = "The user could not be removed (error in deletion targeting).";
+            res.status(500).json({ error });
           });
       } else {
         const message = `No user with the specified ID [${id}] exists.`;
