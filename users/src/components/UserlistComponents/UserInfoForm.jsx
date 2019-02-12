@@ -3,10 +3,11 @@ import React, { useContext } from "react";
 import { UsersContext } from "../../providers/UsersProvider";
 
 function UserInfoForm(props) {
-  const { newName, newBio, handleTextInputChange } = useContext(UsersContext);
+  const { selectedUser, newName, newBio, isInUpdateMode, handleTextInputChange } = useContext(UsersContext);
 
   return (
     <form className="userlist__info-form">
+      {isInUpdateMode && selectedUser && <div className="userlist__info-form__update-notif">{`[NOW UPDATING: ${selectedUser.name.toUpperCase()}]`}</div>}
       <div className="userlist__info-form__field">
         <label className="userlist__info-form__field__label" htmlFor="newName">Name: </label>
         <input

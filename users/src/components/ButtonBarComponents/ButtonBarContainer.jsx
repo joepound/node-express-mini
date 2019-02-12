@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 
 import { UsersContext } from "../../providers/UsersProvider";
 
-import { AddUserButton, RemoveUserButton } from ".";
+import { AddUserButton, RemoveUserButton, SaveUserUpdatesButton } from ".";
 
 function ButtonBarContainer(props) {
-  const { selectedUser } = useContext(UsersContext);
+  const { selectedUser, isInUpdateMode } = useContext(UsersContext);
 
   return (
     <footer className="userlist__button-bar">
-      <AddUserButton />
+      {isInUpdateMode ? <SaveUserUpdatesButton/> : <AddUserButton />}
       {selectedUser && <RemoveUserButton />}
     </footer>
   );

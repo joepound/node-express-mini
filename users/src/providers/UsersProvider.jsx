@@ -18,6 +18,8 @@ function UsersProvider(props) {
     newBio,
     isInUpdateMode,
 
+    setIsInUpdateMode,
+
     textInputSetters: {
       setNewName,
       setNewBio
@@ -42,11 +44,12 @@ function UsersProvider(props) {
         alert("Please enter a name first.");
       } else if (!newBio) {
         alert("Please enter a bio first.");
-      } else {
+      } else if (window.confirm("Are you sure you want to add a new user?")) {
+        const newUserObj = { name: newName, bio: newBio };
         axios
-          .post(`${baseURL}/users`, {name: newName, bio: newBio})
+          .post(`${baseURL}/users`, newUserObj)
           .then(res => {
-            alert(`User ${newName} was successfully added.`);
+            alert(`User "${newName}" was successfully added.`);
             usersContext.getUsers();
             setNewName("");
             setNewBio("");
@@ -56,11 +59,13 @@ function UsersProvider(props) {
     },
 
     deleteUser() {
-      if (window.confirm("Are you sure you want to deleted the selected user?")) {
+      if (
+        window.confirm("Are you sure you want to deleted the selected user?")
+      ) {
         axios
           .delete(`${baseURL}/users/${selectedUser.id}`)
           .then(res => {
-            alert(`User ${selectedUser.name} was successfully deleted.`);
+            alert(`User "${selectedUser.name}" was successfully deleted.`);
             usersContext.getUsers();
             setSelectedUser("");
           })
@@ -69,11 +74,43 @@ function UsersProvider(props) {
     },
 
     toggleUpdateMode() {
-      setIsInUpdateMode(!isInUpdateMode);
+      const toggledUpdateMode = !isInUpdateMode;
+
+      if (toggledUpdateMode) {
+        usersContext.populateUserForm();
+      }
+
+      setIsInUpdateMode(toggledUpdateMode);
+    },
+
+    populateUserForm() {
+      setNewName(selectedUser.name);
+      setNewBio(selectedUser.bio);
+    },
+
+    updateUser() {
+      if (
+        window.confirm("Are you sure you want to update the selected user?")
+      ) {
+        const userUpdatesObj = { name: newName, bio: newBio };
+        axios
+          .put(`${baseURL}/users/${selectedUser.id}`, userUpdatesObj)
+          .then(res => {
+            alert(`User "${newName}" was successfully updated.`);
+            usersContext.getUsers();
+            setSelectedUser(userUpdatesObj);
+            setNewName("");
+            setNewBio("");
+            usersContext.toggleUpdateMode();
+          })
+          .catch(err => console.log(err));
+      }
     },
 
     handleTextInputChange(e) {
-      usersContext.textInputSetters[e.currentTarget.name](e.currentTarget.value);
+      usersContext.textInputSetters[e.currentTarget.name](
+        e.currentTarget.value
+      );
     },
 
     handleUserSelect(e) {
