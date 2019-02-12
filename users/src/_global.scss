@@ -27,7 +27,7 @@ input,
 select,
 textarea {
   border: 1px solid $lightgray;
-  transition: all 375ms ease-in-out;
+  transition: border 375ms ease-in-out, border-color 375ms ease-in-out, outline 375ms ease-in-out;
 
   &:focus {
     outline: none;
