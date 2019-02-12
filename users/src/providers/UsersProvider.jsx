@@ -28,7 +28,12 @@ function UsersProvider(props) {
     getUsers() {
       axios
         .get(`${baseURL}/users`)
-        .then(res => setUsers(res.data))
+        .then(res => {
+          res.data.sort((a, b) =>
+            a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
+          );
+          setUsers(res.data);
+        })
         .catch(err => console.log(err));
     },
 
