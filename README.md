@@ -1,6 +1,6 @@
 # Building RESTful APIs with Node.js and Express Mini
 
-Server: https://joepound-ls-brwawe-1.herokuapp.com/
+Server: https://joepound-ls-brwawe1.herokuapp.com/
 
 ## Topics
 
