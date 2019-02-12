@@ -44,7 +44,7 @@ function UsersProvider(props) {
         axios
           .post(`${baseURL}/users`, {name: newName, bio: newBio})
           .then(res => {
-            alert("User was successfully added.");
+            alert(`User ${newName} was successfully added.`);
             usersContext.getUsers();
             setNewName("");
             setNewBio("");
@@ -53,11 +53,12 @@ function UsersProvider(props) {
       }
     },
 
-    deleteUser(id) {
+    deleteUser() {
       if (window.confirm("Are you sure you want to deleted the selected user?")) {
         axios
-          .delete(`${baseURL}/users/${id}`)
+          .delete(`${baseURL}/users/${selectedUser.id}`)
           .then(res => {
+            alert(`User ${selectedUser.name} was successfully deleted.`);
             usersContext.getUsers();
             setSelectedUser("");
           })

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 
-function AddUserButton(props) {
+import { UsersContext } from "../../providers/UsersProvider";
+
+function RemoveUserButton(props) {
+  const { deleteUser } = useContext(UsersContext);
+
   return (
-    <div className="userlist__button-bar__remove-user">
+    <div className="userlist__button-bar__remove-user" onClick={deleteUser}>
       X
     </div>
   );
 }
 
-export default AddUserButton;
+export default RemoveUserButton;
