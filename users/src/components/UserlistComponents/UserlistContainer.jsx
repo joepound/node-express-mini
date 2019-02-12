@@ -7,6 +7,7 @@ function UserlistContainer(props) {
     <main>
       <UserInfoForm />
       <UserlistSelect />
+      <UserInfoDisplay />
     </main>
   )
 }
