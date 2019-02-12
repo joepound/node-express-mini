@@ -19,8 +19,15 @@ function UsersProvider(props) {
         .catch(err => console.log(err));
     },
 
+    getUserById(id) {
+      axios
+        .get(`${baseURL}/users/${id}`)
+        .then(res => setSelectedUser(res.data))
+        .catch(err => console.log(err));
+    },
+
     handleUserSelect(e) {
-      setSelectedUser(e.currentTarget.value);
+      usersContext.getUserById(e.currentTarget.value);
     }
   };
 

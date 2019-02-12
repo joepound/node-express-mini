@@ -6,16 +6,15 @@ function UserlistSelect(props) {
   const { users, selectedUser, getUsers, handleUserSelect } = useContext(
     UsersContext
   );
-  useEffect(() => getUsers(), [users]);
+  useEffect(() => getUsers(), []);
 
   return (
     <div className="userlist__select">
       <label className="userlist__select__label">View any user below: </label>
-
       <select
         className="userlist__select__dropdown"
         name="setSelectedUser"
-        value={selectedUser}
+        value={selectedUser ? selectedUser.id : ""}
         onChange={handleUserSelect}
       >
         {users.length ? (
@@ -27,6 +26,7 @@ function UserlistSelect(props) {
               <option
                 key={user.id}
                 className="userlist__select__dropdown__option"
+                value={user.id}
               >
                 {user.name}
               </option>
@@ -34,7 +34,7 @@ function UserlistSelect(props) {
           </>
         ) : (
           <option disabled hidden value="">
-            No users currently available.
+            Add some users....
           </option>
         )}
       </select>
