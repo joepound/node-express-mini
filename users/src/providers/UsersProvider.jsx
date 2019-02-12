@@ -8,6 +8,7 @@ function UsersProvider(props) {
   const [selectedUser, setSelectedUser] = useState("");
   const [newName, setNewName] = useState("");
   const [newBio, setNewBio] = useState("");
+  const [isInUpdateMode, setIsInUpdateMode] = useState(false);
 
   const baseURL = "https://joepound-ls-brwawe-1.herokuapp.com/api";
   const usersContext = {
@@ -15,6 +16,7 @@ function UsersProvider(props) {
     selectedUser,
     newName,
     newBio,
+    isInUpdateMode,
 
     textInputSetters: {
       setNewName,
@@ -64,6 +66,10 @@ function UsersProvider(props) {
           })
           .catch(err => console.log(err));
       }
+    },
+
+    toggleUpdateMode() {
+      setIsInUpdateMode(!isInUpdateMode);
     },
 
     handleTextInputChange(e) {

@@ -7,6 +7,7 @@ function UserInfoDisplay(props) {
 
   return selectedUser ? (
     <section className="userlist__selected-info">
+      <img className="userlist__selected-info__edit-btn" src="images/edit-icon.png" alt="Edit User"/>
       <h2 className="userlist__selected-info__name">{selectedUser.name}</h2>
       <div className="userlist__selected-info__bio">
         <label className="userlist__selected-info__bio__label">Bio:</label>

@@ -41,13 +41,34 @@
 }
 
 .userlist__selected-info {
-  margin: 75px 0 100px;
+  position: relative;
+  margin: 37.5px 0 100px;
+
+  &__edit-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 30px;
+    cursor: pointer;
+    transition: filter 375ms;
+
+    &:hover {
+      filter: brightness(75%);
+      transition: all 375ms;
+    }
+
+    &:active {
+      filter: brightness(50%);
+      transition: all 125ms;
+    }
+  }
 
   &__name {
     text-align: center;
     font-size: 2.4rem;
     font-weight: bold;
-    margin-bottom: 50px;
+    padding-top: 50px;
+    margin: 0 0 50px;
   }
 
   &__bio {
