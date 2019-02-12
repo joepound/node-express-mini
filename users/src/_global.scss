@@ -23,6 +23,19 @@ img {
   max-width: 100%;
 }
 
+input,
+select,
+textarea {
+  border: 1px solid $lightgray;
+  transition: all 375ms ease-in-out;
+
+  &:focus {
+    outline: none;
+    border-color: $input-focus-color !important;
+    transition: all 375ms ease-in-out;
+  }
+}
+
 .root {
   height: 100%;
 }

@@ -1,0 +1,26 @@
+.userlist__info-form {
+  &__field {
+    margin-bottom: 25px;
+
+    &__label {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin-bottom: 8.75px;
+    }
+
+    &__input.textfield {
+      @include smoothen-input-borders();
+
+      width: 87.5%;
+      padding: 7.5px 0 8.75px;
+    }
+
+    &__input.textarea {
+      width: 100%;
+      height: 8rem;
+      font-size: 1.6rem;
+      padding: 1rem 1.25rem;
+    }
+  }
+}
