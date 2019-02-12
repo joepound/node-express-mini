@@ -10,7 +10,7 @@ function UsersProvider(props) {
   const [newBio, setNewBio] = useState("");
   const [isInUpdateMode, setIsInUpdateMode] = useState(false);
 
-  const baseURL = "https://joepound-ls-brwawe-1.herokuapp.com/api";
+  const baseURL = "https://joepound-ls-brwawe1.herokuapp.com/api";
   const usersContext = {
     users,
     selectedUser,
