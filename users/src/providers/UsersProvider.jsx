@@ -26,6 +26,22 @@ function UsersProvider(props) {
         .catch(err => console.log(err));
     },
 
+    addUser() {
+      
+    },
+
+    deleteUser(id) {
+      if (window.confirm("Are you sure you want to deleted the selected user?")) {
+        axios
+          .delete(`${baseURL}/users/${id}`)
+          .then(res => {
+            usersContext.getUsers();
+            setSelectedUser("");
+          })
+          .catch(err => console.log(err));
+      }
+    },
+
     handleUserSelect(e) {
       usersContext.getUserById(e.currentTarget.value);
     }

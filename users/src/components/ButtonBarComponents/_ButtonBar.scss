@@ -15,6 +15,7 @@
     text-align: center;
     font-weight: bold;
     cursor: pointer;
+    margin: 0 5%;
     transition: filter 375ms;
 
     &:hover {
@@ -33,6 +34,16 @@
     background-color: $add-user-bg-color;
     font-size: 5rem;
     color: $add-user-font-color;
+    padding: 5px 17.5px;
+    border-radius: 100%;
+  }
+
+  &__remove-user {
+    @extend %action-btn;
+
+    background-color: $remove-user-bg-color;
+    font-size: 5rem;
+    color: $remove-user-font-color;
     padding: 5px 17.5px;
     border-radius: 100%;
   }
