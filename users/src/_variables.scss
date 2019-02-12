@@ -1,0 +1,32 @@
+/* Color values */
+$mine-shaft: #2c2c2c;
+$cararra: #f0efe9;
+$white: #ffffff;
+$shark: #20232A;
+$malibu: #61DAFB;
+$amaranth: #e83f53;
+
+/*  Color assignments */
+
+// Global assignments
+$default-font-color: $mine-shaft;
+$outer-bg-color: $cararra;
+$inner-bg-color: $white;
+
+/* Font assignments */
+
+// Global assignments
+$body-font-family: "Roboto";
+$body-font-size: 1.8rem;
+$heading-font-family: "Roboto";
+$heading-font-size: 2.4rem;
+
+// TodoForm component assignments
+$input-focus-color: $malibu;
+
+
+// Action button components assignments
+$clear-completed-bg-color: $amaranth;
+$clear-completed-font-color: $white;
+$add-todo-bg-color: $malibu;
+$add-todo-font-color: $white;

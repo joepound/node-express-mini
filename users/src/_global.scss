@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-family: $body-font-family;
+  font-size: 62.5%;
+  color: $default-font-color;
+  line-height: 1.25;
+}
+
+body {
+  height: 100%;
+  background-color: $outer-bg-color;
+}
+
+p {
+  font-size: $body-font-size;
+}
+
+img {
+  max-width: 100%;
+}
+
+.root {
+  height: 100%;
+}

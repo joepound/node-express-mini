@@ -1,0 +1,42 @@
+// Media query styling
+
+$desktop-min-size: 800px;
+$tablet-min-size: 500px;
+
+@mixin tablet-view {
+  @media (max-width: #{$tablet-min-size}) {
+    @content;
+  }
+}
+@mixin desktop-view {
+  @media (max-width: #{$desktop-min-size}) {
+    @content;
+  }
+}
+
+// General reusable styles
+
+@mixin make-flex(
+  $flex-direction: row,
+  $justify-content: flex-start,
+  $align-items: flex-start,
+  $flex-wrap: nowrap
+) {
+  display: flex;
+  flex-flow: $flex-direction, $flex-wrap;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+@mixin smoothen-input-borders($focus-border-color) {
+  border-top: none;
+  border-right: none;
+  border-bottom: 1px solid $lightgray;
+  border-left: none;
+  transition: border-bottom 500ms ease-in-out;
+
+  &:focus {
+    outline: none;  
+    border-bottom: 1px solid $focus-border-color;
+    transition: all 500ms ease-in-out;
+  }
+}
