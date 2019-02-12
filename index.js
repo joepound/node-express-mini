@@ -76,17 +76,18 @@ server.delete("/api/users/:id", (req, res) => {
             if (deletions === 1) {
               res.status(200).json(user);
             } else if (deletions > 1) {
-              const message =
+              const error =
                 "ERROR: MORE THAN ONE USER WAS INADVERTENTLY DELETED!";
-              res.status(500).json({ message });
+              res.status(500).json({ error });
             } else {
-              const message =
+              const error =
                 "The user could not be removed (error in deletion process).";
-              res.status(500).json({ message });
+              res.status(500).json({ error });
             }
           })
           .catch(err => {
-            const error = "The user could not be removed (error in deletion targeting).";
+            const error =
+              "The user could not be removed (error in resolving DELETE request).";
             res.status(500).json({ error });
           });
       } else {
@@ -105,9 +106,54 @@ server.put("/api/users/:id", (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  db.update(id, changes)
-    .then(updateCount => res.status(204).end())
-    .catch(err => res.status(err.code).json(err));
+  if (!changes) {
+    const errorMessage = "Please provide an update object.";
+    res.status(400).json({ errorMessage });
+  } else if (!changes.name) {
+    const errorMessage = "Please provide a name for the user.";
+    res.status(400).json({ errorMessage });
+  } else if (!changes.bio) {
+    const errorMessage = "Please provide a bio for the user.";
+    res.status(400).json({ errorMessage });
+  } else {
+    db.findById(id)
+      .then(user => {
+        if (user) {
+          db.update(id, changes)
+            .then(updates => {
+              if (updates === 1) {
+                db.findById(id)
+                  .then(updatedUser => res.status(200).json(updatedUser))
+                  .catch(err => {
+                    const error = `The user with ID ${id} was updated but an error occurred in retrieving the updated data.`;
+                    res.status(500).json({ error });
+                  });
+              } else if (updates > 1) {
+                const message =
+                  "ERROR: MORE THAN ONE USER WAS INADVERTENTLY UPDATED!";
+                res.status(500).json({ message });
+              } else {
+                const message =
+                  "The user information could not be modified (error in update process).";
+                res.status(500).json({ message });
+              }
+            })
+            .catch(err => {
+              const message =
+                "The user information could not be modified (error in resolving PUT request).";
+              res.status(500).json({ message });
+            });
+        } else {
+          const message = `No user with the specified ID [${id}] exists.`;
+          res.status(404).json({ message });
+        }
+      })
+      .catch(err => {
+        const error =
+          "The user information could not be modified (error in checking user data).";
+        res.status(500).json({ error });
+      });
+  }
 });
 
 const port = process.env.PORT || 5000;
