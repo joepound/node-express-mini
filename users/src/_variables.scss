@@ -13,6 +13,9 @@ $default-font-color: $mine-shaft;
 $outer-bg-color: $cararra;
 $inner-bg-color: $white;
 
+// ButtonBar components assignments
+$button-bar-bg-color: $shark;
+
 /* Font assignments */
 
 // Global assignments
@@ -20,13 +23,10 @@ $body-font-family: "Roboto";
 $body-font-size: 1.8rem;
 $heading-font-family: "Roboto";
 $heading-font-size: 2.4rem;
-
-// TodoForm component assignments
 $input-focus-color: $malibu;
 
-
-// Action button components assignments
-$clear-completed-bg-color: $amaranth;
-$clear-completed-font-color: $white;
-$add-todo-bg-color: $malibu;
-$add-todo-font-color: $white;
+// Button bar components assignments
+// $clear-completed-bg-color: $amaranth;
+// $clear-completed-font-color: $white;
+$add-user-bg-color: $malibu;
+$add-user-font-color: $white;

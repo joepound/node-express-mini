@@ -1,0 +1,39 @@
+.userlist__button-bar {
+  @include make-flex(row, center, center);
+
+  position: fixed;
+  right: 50%;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  background-color: $button-bar-bg-color;
+  transform: translateX(50%);
+  padding: 15px 0;
+
+  %action-btn {
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 375ms;
+
+    &:hover {
+      filter: brightness(75%);
+      transition: all 250ms;
+    }
+
+    &:active {
+      filter: brightness(50%);
+    }
+  }
+
+  &__add-user {
+    @extend %action-btn;
+
+    background-color: $add-user-bg-color;
+    font-size: 5rem;
+    color: $add-user-font-color;
+    padding: 5px 17.5px;
+    border-radius: 100%;
+  }
+}
