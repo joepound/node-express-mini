@@ -30,7 +30,7 @@ function UsersProvider(props) {
         .get(`${baseURL}/users`)
         .then(res => {
           res.data.sort((a, b) =>
-            a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
+            a.name.toUpperCase().trim() > b.name.toUpperCase().trim() ? 1 : -1
           );
           setUsers(res.data);
         })
