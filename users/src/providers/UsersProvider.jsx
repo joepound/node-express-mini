@@ -107,7 +107,7 @@ function UsersProvider(props) {
           .then(res => {
             alert(`User "${newName}" was successfully updated.`);
             usersContext.getUsers();
-            setSelectedUser(userUpdatesObj);
+            setSelectedUser(res.data);
             setNewName("");
             setNewBio("");
             usersContext.toggleUpdateMode();
