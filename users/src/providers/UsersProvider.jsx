@@ -94,7 +94,11 @@ function UsersProvider(props) {
     },
 
     updateUser() {
-      if (
+      if (!newName) {
+        alert("Please enter a name first.");
+      } else if (!newBio) {
+        alert("Please enter a bio first.");
+      } else if (
         window.confirm("Are you sure you want to update the selected user?")
       ) {
         const userUpdatesObj = { name: newName, bio: newBio };
